@@ -1,0 +1,57 @@
+<div class="card">
+  <div class="card-body">
+    <form [formGroup]="medicalHistoryForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="medicalCondition">Medical Condition:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="medicalCondition"
+          formControlName="medicalCondition"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="medications">Medications:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="medications"
+          formControlName="medications"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="allergies">Allergies:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="allergies"
+          formControlName="allergies"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="surgeries">Surgeries:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="surgeries"
+          formControlName="surgeries"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="familyMedicalHistory">Family Medical History:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="familyMedicalHistory"
+          formControlName="familyMedicalHistory"
+        />
+      </div>
+
+      <button type="submit" class="btn btn-primary mt-2">Submit</button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,71 @@
+<div class="container mt-4 card">
+    <div class="d-flex justify-content-between">
+        <h2 class="mb-3 mt-2">Medical Histories</h2>
+        <button class="btn btn-primary mb-3 mt-2" (click)="toggleAddForm()">add a record</button >
+    </div>
+
+    <div class="container mt-4 card mb-4" *ngIf="showAddForm">
+        <h2 class="mb-3">Add Medical History Record</h2>
+      
+        <form [formGroup]="medicalHistoryForm" (ngSubmit)="onSubmit()">
+      
+          <div class="form-group">
+            <label for="medicalCondition">Medical Condition:</label>
+            <input type="text" id="medicalCondition" formControlName="medicalCondition" class="form-control" />
+          </div>
+      
+          <div class="form-group">
+            <label for="medications">Medications:</label>
+            <input type="text" id="medications" formControlName="medications" class="form-control" />
+          </div>
+      
+          <div class="form-group">
+            <label for="allergies">Allergies:</label>
+            <input type="text" id="allergies" formControlName="allergies" class="form-control" />
+          </div>
+      
+          <div class="form-group">
+            <label for="surgeries">Surgeries:</label>
+            <input type="text" id="surgeries" formControlName="surgeries" class="form-control" />
+          </div>
+      
+          <div class="form-group">
+            <label for="familyMedicalHistory">Family Medical History:</label>
+            <input type="text" id="familyMedicalHistory" formControlName="familyMedicalHistory" class="form-control" />
+          </div>
+      
+          <button type="submit" class="btn btn-primary mb-3 mt-2">Submit</button>
+        </form>
+      </div>
+  
+    <table class="table table-bordered table-hover" *ngIf="!showAddForm">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Date of Entry</th>
+          <th scope="col">Medical Condition</th>
+          <th scope="col">Medications</th>
+          <th scope="col">Allergies</th>
+          <th scope="col">Surgeries</th>
+          <th scope="col">Family Medical History</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let history of medicalhistories">
+          <td>{{ history.medicalHistoryID }}</td>
+          <td>{{ history.dateOfEntry | date:'medium' }}</td>
+          <td>{{ history.medicalCondition }}</td>
+          <td>{{ history.medications || 'N/A' }}</td>
+          <td>{{ history.allergies || 'N/A' }}</td>
+          <td>{{ history.surgeries || 'N/A' }}</td>
+          <td>{{ history.familyMedicalHistory || 'N/A' }}</td>
+          <td><button class="btn btn-danger" (click)="deleteRecord(history.medicalHistoryID)">Delete</button></td>
+          <td><a [routerLink]="['/medical-history', history.medicalHistoryID]" class="btn btn-success">Edit</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <mat-spinner *ngIf="isDeleteLoading"></mat-spinner>
+  </div>
+  
