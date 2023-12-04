@@ -1,0 +1,21 @@
+<div *ngIf="appointment" class="container mt-4">
+    <h2 class="mb-3 bg-light card ps-2">Appointment Details</h2>
+  
+    <div class="card">
+      <div class="card-body">
+        <p class="card-text"><strong>Doctor Name:</strong> {{ appointment.doctorName }}</p>
+        <p class="card-text"><strong>Appointment Date:</strong> {{ appointment.appointmentDateTime | date  }}</p>
+        <p class="card-text"><strong>Appointment Time:</strong> {{ appointment.appointmentDateTime | date:'shortTime' }}</p>
+        <p class="card-text"><strong>Status:</strong> {{ appointment.speciality }}</p>
+        <p class="card-text"><strong>Status:</strong> {{ appointment.status }}</p>
+  
+        <div class="form-group">
+          <label for="notes" class="font-weight-bold">if you have any notes for the doctor, please add it here:</label>
+          <textarea id="notes" [(ngModel)]="appointment.notes" class="form-control" rows="4"></textarea>
+        </div>
+  
+        <button  class="btn btn-primary mt-3" (click)="bookAppointment()">Confirm Schedual</button>
+      </div>
+    </div>
+  </div>
+  
