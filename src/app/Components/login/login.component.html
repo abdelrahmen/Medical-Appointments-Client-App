@@ -4,6 +4,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
+	<div class="d-flex justify-content-center loading-sign" *ngIf="isLoading">
+		<mat-spinner ></mat-spinner>
+	</div>
+	
 	<div class="main">  	
 		<input type="checkbox" id="chk" aria-hidden="true" checked>
 
@@ -28,9 +32,4 @@
 				</form>
 			</div>
 	</div>
-	<mat-spinner *ngIf="isLoading"></mat-spinner>
-	<!-- <div class="main" *ngIf="registerForm.invalid && registerForm.touched">
-		<small *ngIf="registerFormControls['firstName'].errors" class="invalid-feedback">
-			<p *ngIf="registerFormControls['firstName'].errors?.['required']">First Name is required</p>
-		</small>
-	</div> -->
+	<div id="snackbar" [class.show] = "showSnackBar">{{snackbarMessage}}</div>

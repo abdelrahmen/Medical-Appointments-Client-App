@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
-import {ProgressSpinnerMode, MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @Component({
@@ -47,19 +47,28 @@ export class LoginComponent {
       this.isLoading = true;
       this.authService.loginUser(this.loginForm.value).subscribe({
         next: res=>{
-          console.log("from login method:", res);
           if (res?.token) {
             this.router.navigate(["home"]);
           }
           this.isLoading = false;
         },
-        error: (err)=>{
+        error: (err:HttpErrorResponse)=>{
           this.isLoading = false;
+          this.openSnackBar(err.message);
         },
         complete: ()=>{
           this.isLoading = false;
+          console.log("we are in comp");
         },
       })
     }
+  }
+
+  showSnackBar: boolean=false;
+  snackbarMessage:string="";
+  openSnackBar(msg:string) {
+    this.showSnackBar = true;
+    this.snackbarMessage=msg;
+    setTimeout(()=>this.showSnackBar=false, 3000);
   }
 }

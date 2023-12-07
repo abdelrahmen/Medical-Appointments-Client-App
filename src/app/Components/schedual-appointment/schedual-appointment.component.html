@@ -1,7 +1,10 @@
+
 <div *ngIf="appointment" class="container mt-4">
     <h2 class="mb-3 bg-light card ps-2">Appointment Details</h2>
-  
     <div class="card">
+      <div class="d-flex justify-content-center loading-sign" *ngIf="isLoading">
+        <mat-spinner ></mat-spinner>
+      </div>
       <div class="card-body">
         <p class="card-text"><strong>Doctor Name:</strong> {{ appointment.doctorName }}</p>
         <p class="card-text"><strong>Appointment Date:</strong> {{ appointment.appointmentDateTime | date  }}</p>
@@ -18,4 +21,4 @@
       </div>
     </div>
   </div>
-  
+  <div id="snackbar" [class.show] = "showSnackBar">{{snackbarMessage}}</div>

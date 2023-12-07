@@ -43,4 +43,14 @@ export class BookedAppointmentsComponent implements OnInit {
       }
     });
   }
+
+  isLoading: boolean = true;
+
+  showSnackBar: boolean=false;
+  snackbarMessage:string="";
+  openSnackBar(msg:string) {
+    this.showSnackBar = true;
+    this.snackbarMessage=msg;
+    setTimeout(()=>this.showSnackBar=false, 3000);
+  }
 }
