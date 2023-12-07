@@ -7,16 +7,17 @@ import { SchedualAppointmentComponent } from './Components/schedual-appointment/
 import { BookedAppointmentsComponent } from './Components/booked-appointments/booked-appointments.component';
 import { MedicalHistoryComponent } from './Components/medical-history/medical-history.component';
 import { EditMedicalHistoryComponent } from './Components/edit-medical-history/edit-medical-history.component';
+import { authGuard } from './Guards/auth.guard';
 
 const routes: Routes = [
-  {path: "", component: LoginComponent},
+  {path: "", component: AppointmentListComponent},
   {path: "login", component: LoginComponent},
   {path: "register", component: RegisterComponent},
   {path: "home", component: AppointmentListComponent},
   {path: "schedual/:appointmentId", component: SchedualAppointmentComponent},
-  {path: "booked", component: BookedAppointmentsComponent},
-  {path: "medical-history", component: MedicalHistoryComponent},
-  {path: "medical-history/:medicalHistoryId", component: EditMedicalHistoryComponent},
+  {path: "booked", component: BookedAppointmentsComponent, canActivate: [authGuard]},
+  {path: "medical-history", component: MedicalHistoryComponent, canActivate: [authGuard]},
+  {path: "medical-history/:medicalHistoryId", component: EditMedicalHistoryComponent, canActivate: [authGuard]},
 ];
 
 @NgModule({
