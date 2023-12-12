@@ -10,6 +10,9 @@ import { MedicalHistoryService } from 'src/app/Services/medical-history.service'
 })
 export class MedicalHistoryComponent implements OnInit {
 
+  isLoading: boolean = false;
+
+
   constructor(private medicalHistoryService: MedicalHistoryService, private fb: FormBuilder,) {
     this.medicalHistoryForm = this.fb.group({
       medicalCondition: ['', [Validators.required, Validators.maxLength(255)]],
@@ -25,6 +28,7 @@ export class MedicalHistoryComponent implements OnInit {
   medicalhistories: MedicalHistoryDTO[] = [];
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.showAddForm = false;
     this.loadMedicalHistories();
 
@@ -35,9 +39,14 @@ export class MedicalHistoryComponent implements OnInit {
       next: (value) => {
         console.log("from service ",this.medicalHistoryService.medicalHistories);
         this.medicalhistories = value;
+        this.isLoading = false;
       },
       error: (err) => {
-        console.log("from comp. ", err);
+        this.openSnackBar(err?.message ?? err.statusText);
+        this.isLoading = false;
+      },
+      complete: ()=>{
+        this.isLoading = false;
       }
     });
   }
@@ -47,6 +56,7 @@ export class MedicalHistoryComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.isLoading = true;
     if (this.medicalHistoryForm.valid) {
       console.log("button clicked");
       this.medicalHistoryService.addMedicalHistory(this.medicalHistoryForm.value).subscribe(
@@ -54,13 +64,14 @@ export class MedicalHistoryComponent implements OnInit {
           next: (res) => {
             console.log(res);
             console.log('Medical history record added successfully.');
+            this.isLoading = false;
             this.ngOnInit();
           },
-          error: (error) => {
-            console.error('Error adding medical history record:', error);
-          },
+          error: (err) => {
+            this.isLoading = false;
+            this.openSnackBar(err?.message ?? err.statusText);         },
           complete: () => {
-            console.error('completed');
+            this.isLoading = false;
           }
         }
       );
@@ -68,23 +79,30 @@ export class MedicalHistoryComponent implements OnInit {
     console.log(this.medicalHistoryForm.value, this.medicalHistoryForm.valid);
   }
 
-  isDeleteLoading: boolean = false;
   deleteRecord(recordId: number) {
-    this.isDeleteLoading = true;
+    this.isLoading = true;
     this.medicalHistoryService.deleteRecord(recordId).subscribe({
       next: (res) => {
         this.ngOnInit();
         console.log("in deleteRecord func next", res);
-        this.isDeleteLoading = false;
+        this.isLoading = false;
       },
       error: (err) => {
-        console.log("in deleteRecord func err", err);
-        this.isDeleteLoading = false;
+        this.openSnackBar(err?.message ?? err.statusText);
+        this.isLoading = false;
       },
       complete: () => {
         console.log("completed from deleteRecord");
-        this.isDeleteLoading = false;
+        this.isLoading = false;
       }
     });
+  }
+
+  showSnackBar: boolean=false;
+  snackbarMessage:string="";
+  openSnackBar(msg:string) {
+    this.showSnackBar = true;
+    this.snackbarMessage=msg;
+    setTimeout(()=>this.showSnackBar=false, 3000);
   }
 }

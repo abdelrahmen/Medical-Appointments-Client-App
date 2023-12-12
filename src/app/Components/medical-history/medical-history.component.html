@@ -66,6 +66,10 @@
         </tr>
       </tbody>
     </table>
-    <mat-spinner *ngIf="isDeleteLoading"></mat-spinner>
+    <div class="spinner">
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+    </div>
+    <div id="snackbar" [class.show] = "showSnackBar">{{snackbarMessage}}</div>
   </div>
+ 
   
