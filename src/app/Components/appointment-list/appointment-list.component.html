@@ -1,75 +1,98 @@
-<div *ngIf="!availableAppointments" class="h-100 d-flex align-items-center justify-content-center">
-    <h1>No Available Appointments, please check back later</h1>
+<div
+  *ngIf="availableAppointments.length == 0 && !isLoading"
+  class="h-100 d-flex align-items-center justify-content-center"
+>
+  <h1 class="text-white">No Available Appointments, please check back later</h1>
 </div>
 
-<div class="container">
-    <div class="row">
-        <div class="">
-            <div class="panel">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col col-sm-3 col-xs-12">
-                            <h4 class="title">Data <span>List</span></h4>
-                        </div>
-                        <div class="col-sm-9 col-xs-12 text-right">
-                            <div class="btn_group">
-                                <input type="text" class="form-control" placeholder="Search">
-                                <button class="btn btn-default" title="Reload"><i class="fa fa-sync-alt"></i></button>
-                                <button class="btn btn-default" title="Pdf"><i class="fa fa-file-pdf"></i></button>
-                                <button class="btn btn-default" title="Excel"><i class="fas fa-file-excel"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-center loading-sign" *ngIf="isLoading">
-                    <mat-spinner ></mat-spinner>
-                </div>
-                <div class="panel-body table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Doctor Name</th>
-                                <th>Speciality</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let appointment of availableAppointments">
-                                <td>{{appointment.appointmentID}}</td>
-                                <td>{{appointment.doctorName}}</td>
-                                <td>{{appointment.speciality}}</td>
-                                <td>{{appointment.appointmentDateTime | date}}</td>
-                                <td>{{appointment.appointmentDateTime | date:"shortTime" }}</td>
-                                <td> <a class="btn btn-primary" routerLink="/schedual/{{appointment.appointmentID}}">Book Appointment</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="panel-footer">
-                    <div class="row">
-                        <div class="col col-sm-6 col-xs-6">showing <b>{{availableAppointments.length}}</b> out of <b>25</b> entries</div>
-                        <div class="col-sm-6 col-xs-6">
-                            <ul class="pagination hidden-xs pull-right">
-                                <li><a href="#"><</a></li>
-                                <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li><a href="#">></a></li>
-                            </ul>
-                            <ul class="pagination visible-xs pull-right">
-                                <li><a href="#"><</a></li>
-                                <li><a href="#">></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+<div class="container" *ngIf="availableAppointments.length > 0">
+  <div class="row">
+    <div class="">
+      <div class="panel">
+        <div class="panel-heading">
+          <div class="row justify-content-between">
+            <div class="col col-sm-3 col-xs-12">
+              <h4 class="title">Available <span>Appointments</span></h4>
             </div>
+            <div class="col-sm-9 col-xs-12 text-right">
+              <div class="btn_group">
+                <input type="text" class="form-control" placeholder="Search" />
+                <button class="btn btn-default" title="Reload">
+                  <i class="fa fa-sync-alt"></i>
+                </button>
+                <button class="btn btn-default" title="Pdf">
+                  <i class="fa fa-file-pdf"></i>
+                </button>
+                <button class="btn btn-default" title="Excel">
+                  <i class="fas fa-file-excel"></i>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
+        <div
+          class="d-flex justify-content-center loading-sign"
+          *ngIf="isLoading"
+        >
+          <mat-spinner></mat-spinner>
+        </div>
+        <div class="panel-body table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Doctor Name</th>
+                <th>Speciality</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let appointment of availableAppointments">
+                <td>{{ appointment.appointmentID }}</td>
+                <td>{{ appointment.doctorName }}</td>
+                <td>{{ appointment.speciality }}</td>
+                <td>{{ appointment.appointmentDateTime | date }}</td>
+                <td>
+                  {{ appointment.appointmentDateTime | date : "shortTime" }}
+                </td>
+                <td>
+                  <a
+                    class="btn btn-primary"
+                    routerLink="/schedual/{{ appointment.appointmentID }}"
+                    >Book Appointment</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel-footer">
+          <div class="row">
+            <div class="col col-sm-6 col-xs-6">
+              showing <b>{{ availableAppointments.length }}</b> out of
+              <b>25</b> entries
+            </div>
+            <div class="col-sm-6 col-xs-6">
+              <ul class="pagination hidden-xs pull-right">
+                <li><a href="#"><</a></li>
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">></a></li>
+              </ul>
+              <ul class="pagination visible-xs pull-right">
+                <li><a href="#"><</a></li>
+                <li><a href="#">></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
-<div id="snackbar" [class.show] = "showSnackBar">{{snackbarMessage}}</div>
+<div id="snackbar" [class.show]="showSnackBar">{{ snackbarMessage }}</div>
