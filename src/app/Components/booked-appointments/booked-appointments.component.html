@@ -1,33 +1,43 @@
 <div class="container mt-4 card">
-    <h2 class="mb-3">Your Scheduled Appointments</h2>
-  
-    <table class="table table-bordered table-hover">
-      <thead class="thead-light">
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Doctor</th>
-          <th scope="col">Appointment Date</th>
-          <th scope="col">Appointment Time</th>
-          <th scope="col">Status</th>
-          <th scope="col">Notes</th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let appointment of scheduledAppointments">
-          <td>{{ appointment.appointmentID }}</td>
-          <td>{{ appointment.doctorName }}</td>
-          <td>{{ appointment.appointmentDateTime | date }}</td>
-          <td>{{ appointment.appointmentDateTime | date:'shortTime' }}</td>
-          <td>{{ appointment.status }}</td>
-          <td>{{ appointment.notes }}</td>
-          <td><button class="btn btn-warning" (click)="cancelAppointmnet(appointment.appointmentID)" *ngIf="!isElapsedAppointment(appointment.appointmentDateTime) && !isCanceled(appointment.status)">Cancel</button></td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="d-flex justify-content-center loading-sign" *ngIf="isLoading">
-      <mat-spinner ></mat-spinner>
+  <h2 class="mb-3">Your Scheduled Appointments</h2>
+
+  <table class="table table-bordered table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Doctor</th>
+        <th scope="col">Appointment Date</th>
+        <th scope="col">Appointment Time</th>
+        <th scope="col">Status</th>
+        <th scope="col">Notes</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let appointment of scheduledAppointments">
+        <td>{{ appointment.appointmentID }}</td>
+        <td>{{ appointment.doctorName }}</td>
+        <td>{{ appointment.appointmentDateTime | date }}</td>
+        <td>{{ appointment.appointmentDateTime | date : "shortTime" }}</td>
+        <td>{{ appointment.status }}</td>
+        <td>{{ appointment.notes }}</td>
+        <td>
+          <button
+            class="btn btn-warning"
+            (click)="cancelAppointmnet(appointment.appointmentID)"
+            *ngIf="
+              !isElapsedAppointment(appointment.appointmentDateTime) &&
+              !isCanceled(appointment.status)
+            "
+          >
+            Cancel
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="d-flex justify-content-center loading-sign" *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
   </div>
-  </div>
-  <div id="snackbar" [class.show] = "showSnackBar">{{snackbarMessage}}</div>
-  
+</div>
+<div id="snackbar" [class.show]="showSnackBar">{{ snackbarMessage }}</div>
