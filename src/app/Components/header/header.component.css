@@ -199,3 +199,6 @@
     /*header ends*/
   }
   
+  .logout:hover{
+    cursor: pointer;
+  }

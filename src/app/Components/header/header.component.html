@@ -19,17 +19,14 @@
             <li>
               <a routerLink="/medical-history" routerLinkActive="active active-first">Medical History</a>
             </li>
-            <li>
-              <a href="#project" routerLinkActive="active active-first">projects</a>
+            <li *ngIf="isLoggedIn()">
+              <a routerLinkActive="active active-first" (click)="Logout()"  class="logout">Logout</a>
             </li>
-            <li>
-              <a href="#team" routerLinkActive="active active-first">team</a>
-            </li>
-            <li>
+            <li *ngIf="!isLoggedIn()">
               <a routerLink="/register" routerLinkActive="active active-first">Register</a>
             </li>
-            <li>
-              <a routerLink="/login" routerLinkActive="active active-first">Login</a>
+            <li *ngIf="!isLoggedIn()">
+              <a routerLink="/login" routerLinkActive="active active-first" >Login</a>
             </li>
           </ul>
         </div>
@@ -37,4 +34,4 @@
     </div>
     <!-- /.container -->
   </header>
-  
+  <div id="snackbar" [class.show] = "showSnackBar">{{snackbarMessage}}</div>
