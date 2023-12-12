@@ -14,7 +14,7 @@ const routes: Routes = [
   {path: "login", component: LoginComponent},
   {path: "register", component: RegisterComponent},
   {path: "home", component: AppointmentListComponent},
-  {path: "schedual/:appointmentId", component: SchedualAppointmentComponent},
+  {path: "schedual/:appointmentId", component: SchedualAppointmentComponent, canActivate: [authGuard]},
   {path: "booked", component: BookedAppointmentsComponent, canActivate: [authGuard]},
   {path: "medical-history", component: MedicalHistoryComponent, canActivate: [authGuard]},
   {path: "medical-history/:medicalHistoryId", component: EditMedicalHistoryComponent, canActivate: [authGuard]},
