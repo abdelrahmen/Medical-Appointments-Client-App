@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AppointmentDTO } from 'src/app/Models/AppointmentDTO';
 import { AppointmentService } from 'src/app/Services/appointment.service';
+import { AuthService } from 'src/app/Services/auth.service';
 
 @Component({
   selector: 'app-appointment-list',
@@ -9,9 +10,10 @@ import { AppointmentService } from 'src/app/Services/appointment.service';
   styleUrls: ['./appointment-list.component.css']
 })
 export class AppointmentListComponent implements OnInit {
+
 isLoading: boolean = true;
 
-  constructor(private appointmentService: AppointmentService){}
+  constructor(private appointmentService: AppointmentService, private authService: AuthService){}
 
   availableAppointments: AppointmentDTO[] = [];
   ngOnInit(): void {
@@ -32,6 +34,11 @@ isLoading: boolean = true;
         this.isLoading = false;
       }
     }) 
+  }
+
+  checkAuthStatues() {
+    if (!this.authService.isLoggedIn())
+      this.openSnackBar("Please Login First")
   }
 
   showSnackBar: boolean=false;
