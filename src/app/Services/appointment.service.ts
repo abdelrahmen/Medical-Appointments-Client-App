@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AppointmentDTO } from '../Models/AppointmentDTO';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { catchError, of, retry } from 'rxjs';
+import { catchError, of, retry, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,8 @@ import { catchError, of, retry } from 'rxjs';
 export class AppointmentService {
 
   constructor(private httpClient: HttpClient) { }
+
+  currentAppointmentsList: AppointmentDTO[] = [];
 
   handleErrors(err: HttpErrorResponse) {
     switch (err.status) {
@@ -45,9 +47,13 @@ export class AppointmentService {
     return options;
   }
 
-  getAvailableAppointments() {
-    return this.httpClient.get<AppointmentDTO[]>(`${environment.baseUrl}/api/appointments/available`).pipe(
+  getAvailableAppointments(page: number = 1, itemsPerPage: number = 10) {
+    const params = new HttpParams()
+      .set('pageNumber', page.toString())
+      .set('itemsPerPage', itemsPerPage.toString());
+    return this.httpClient.get<AppointmentDTO[]>(`${environment.baseUrl}/api/appointments/available`, { params }).pipe(
       retry(2),
+      tap((value) => this.currentAppointmentsList = value)
       // catchError((err, caught)=>{
       //   this.handleErrors(err);
       //   return of();
