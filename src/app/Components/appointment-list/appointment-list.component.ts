@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AppointmentDTO } from 'src/app/Models/AppointmentDTO';
 import { AppointmentService } from 'src/app/Services/appointment.service';
 import { AuthService } from 'src/app/Services/auth.service';
@@ -18,11 +18,14 @@ isLoading: boolean = true;
   availableAppointments: AppointmentDTO[] = [];
   ngOnInit(): void {
     this.isLoading = true;
-    this.appointmentService.getAvailableAppointments().subscribe({
+    this.getAvailableAppointments(this.currentPage, this.itemsPerPage);
+  }
+
+  getAvailableAppointments(pageNumber: number, itemsPerPage: number) {
+    this.appointmentService.getAvailableAppointments(pageNumber, itemsPerPage).subscribe({
       next:(value)=>{
         this.availableAppointments = value;
         this.isLoading = false;
-        console.log("the ava ", this.availableAppointments);
       },
       error: (err: HttpErrorResponse)=>{
         console.log(`error: ${err.message}`);
@@ -36,6 +39,7 @@ isLoading: boolean = true;
     }) 
   }
 
+  
   checkAuthStatues() {
     if (!this.authService.isLoggedIn())
       this.openSnackBar("Please Login First")
@@ -49,4 +53,23 @@ isLoading: boolean = true;
     setTimeout(()=>this.showSnackBar=false, 3000);
   }
   
+
+  //------------pagination-----------------
+  @Input() currentPage: number = 1;
+  @Input() itemsPerPage: number = 10;
+  // @Input() totalItems: number;
+  // @Output() pageChanged: EventEmitter<number> = new EventEmitter();
+
+  // get totalPages(): number {
+  //   return Math.ceil(this.totalItems / this.itemsPerPage);
+  // }
+
+  changePage(page: number): void {
+    // if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.getAvailableAppointments(this.currentPage, this.itemsPerPage);
+      console.log(`current page: ${this.currentPage}`)
+      // this.pageChanged.emit(page);
+    // }
+  }
 }

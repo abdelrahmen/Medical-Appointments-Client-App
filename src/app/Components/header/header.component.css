@@ -68,12 +68,14 @@
   
   .main-header {
     position: fixed;
-    top: 25px;
+    top: 0;
     left: 0;
     z-index: 99;
     width: 100%;
-    -webkit-transition: all 0.4s ease;
     transition: all 0.4s ease;
+    background: #141032;
+    height: 60px;
+    padding-top: 10px;
   }
   
   .main-header.fixed-nav {

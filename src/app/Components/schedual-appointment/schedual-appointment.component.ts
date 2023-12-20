@@ -16,23 +16,29 @@ export class SchedualAppointmentComponent {
   isLoading: boolean = true;
 
   constructor(private appointmentService: AppointmentService, private activatedRoute: ActivatedRoute, router: Router) {
-    this.appointmentService.getAvailableAppointments().subscribe({
-      next: (value) => {
-        this.appointment = value.find(a => a.appointmentID == Number(activatedRoute.snapshot.paramMap.get("appointmentId")));
-        this.isLoading = false;
-        if (!this.appointment) {
-          this.openSnackBar("no appointment found please try again");
-          setTimeout(()=>router.navigateByUrl("home"), 2000);
-        }
-      },
-      error: (err: HttpErrorResponse) => {
-        this.isLoading = false;
-        this.openSnackBar(err.message);
-      },
-      complete: () => {
-        this.isLoading = false;
-      }
-    });
+    // this.appointmentService.getAvailableAppointments().subscribe({
+    //   next: (value) => {
+    //     this.appointment = value.find(a => a.appointmentID == Number(activatedRoute.snapshot.paramMap.get("appointmentId")));
+    //     this.isLoading = false;
+    //     if (!this.appointment) {
+    //       this.openSnackBar("no appointment found please try again");
+    //       setTimeout(() => router.navigateByUrl("home"), 2000);
+    //     }
+    //   },
+    //   error: (err: HttpErrorResponse) => {
+    //     this.isLoading = false;
+    //     this.openSnackBar(err.message);
+    //   },
+    //   complete: () => {
+    //     this.isLoading = false;
+    //   }
+    // });
+    this.appointment = this.appointmentService.currentAppointmentsList.find(a => a.appointmentID == Number(activatedRoute.snapshot.paramMap.get("appointmentId")));
+    if (!this.appointment) {
+      this.openSnackBar("no appointment found please try again");
+      setTimeout(() => router.navigateByUrl("home"), 2000);
+    }
+    this.isLoading = false;
   }
 
   bookAppointment() {

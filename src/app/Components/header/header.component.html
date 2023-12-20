@@ -22,11 +22,9 @@
             <li *ngIf="isLoggedIn()">
               <a routerLinkActive="active active-first" (click)="Logout()"  class="logout">Logout</a>
             </li>
+
             <li *ngIf="!isLoggedIn()">
-              <a routerLink="/register" routerLinkActive="active active-first">Register</a>
-            </li>
-            <li *ngIf="!isLoggedIn()">
-              <a routerLink="/login" routerLinkActive="active active-first" >Login</a>
+              <a routerLink="/login-or-register" routerLinkActive="active active-first" >Login / Register</a>
             </li>
           </ul>
         </div>

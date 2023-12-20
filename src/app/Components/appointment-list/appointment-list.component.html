@@ -5,13 +5,16 @@
   <h1 class="text-white">No Available Appointments, please check back later</h1>
 </div>
 
-<div class="container py-5">
-  <div class="row py-5">
-    <div class="col-lg-10 mx-auto">
+<div class="container-fluid py-5">
+  <div class="d-flex justify-content-center loading-sign" *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+  </div>
+  <div class="row py-5" *ngIf="!isLoading && availableAppointments.length != 0">
+    <div class="mx-auto col-lg-12">
       <div class="card rounded shadow border-0">
         <div class="card-body p-5 bg-white rounded">
           <div class="table-responsive">
-            <table style="width:100%" class="table table-striped table-bordered">
+            <table class="table table-striped table-bordered" aria-label="available apointments list">
               <thead>
                 <tr>
                   <th>ID</th>
@@ -31,7 +34,7 @@
                   <td>
                     {{ appointment.appointmentDateTime | date : "shortTime" }}
                   </td>
-                  <td>
+                  <td class="text-center">
                     <a
                       class="btn btn-primary"
                       routerLink="/schedual/{{ appointment.appointmentID }}"
@@ -42,6 +45,27 @@
                 </tr>
               </tbody>
             </table>
+          </div>
+          <div class="pagination_rounded">
+            <ul>
+              <li>
+                <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1" class="prev">
+                  <i class="fa fa-angle-left" aria-hidden="true"></i> Prev
+                </button>
+              </li>
+              <li><a href="#">1</a></li>
+              <li class="hidden-xs"><a href="#">2</a></li>
+              <li class="hidden-xs"><a href="#">3</a></li>
+              <li class="hidden-xs"><a href="#">4</a></li>
+              <li class="hidden-xs"><a href="#">5</a></li>
+              <li class="visible-xs"><a href="#">...</a></li>
+              <li><a href="#">6</a></li>
+              <li>
+                <button (click)="changePage(currentPage + 1)"  class="next"> <!--[disabled]="currentPage === totalPages"-->
+                  Next <i class="fa fa-angle-right" aria-hidden="true"></i
+                ></button>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
