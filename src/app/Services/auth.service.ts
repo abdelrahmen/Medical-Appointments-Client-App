@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { UserRegisterVM } from '../ViewModels/UserRegister';
-import { catchError, of, retry, tap } from 'rxjs';
+import { retry, tap } from 'rxjs';
 import { UserLoginVM } from '../ViewModels/UserLogin';
 import { Router } from '@angular/router';
 
@@ -50,11 +50,6 @@ export class AuthService {
   register(user: UserRegisterVM) {
     return this.httpClient.post(`${environment.baseUrl}/api/account/register`, user, this.getOptions())
       .pipe(
-        catchError((err, caught) => {
-          this.handleErrors(err);
-          return of();
-        }),
-        retry(2)
       );
   }
 
@@ -67,10 +62,6 @@ export class AuthService {
           localStorage.setItem("expiresOn", response.expiresOn);
         }
       }),
-      // catchError((err, caught)=>{
-      //   this.handleErrors(err);
-      //   return of();
-      // })
     );
   }
 
