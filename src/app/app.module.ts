@@ -7,7 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { HeaderComponent } from './Components/header/header.component';
-import { RegisterComponent } from './Components/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './Components/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -21,7 +20,6 @@ import { EditMedicalHistoryComponent } from './Components/edit-medical-history/e
   declarations: [
     AppComponent,
     HeaderComponent,
-    RegisterComponent,
     LoginComponent,
     AppointmentListComponent,
     SchedualAppointmentComponent,

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './Components/login/login.component';
-import { RegisterComponent } from './Components/register/register.component';
 import { AppointmentListComponent } from './Components/appointment-list/appointment-list.component';
 import { SchedualAppointmentComponent } from './Components/schedual-appointment/schedual-appointment.component';
 import { BookedAppointmentsComponent } from './Components/booked-appointments/booked-appointments.component';
@@ -11,8 +10,7 @@ import { authGuard } from './Guards/auth.guard';
 
 const routes: Routes = [
   {path: "", component: AppointmentListComponent},
-  {path: "login", component: LoginComponent},
-  {path: "register", component: RegisterComponent},
+  {path: "login-or-register", component: LoginComponent},
   {path: "home", component: AppointmentListComponent},
   {path: "schedual/:appointmentId", component: SchedualAppointmentComponent, canActivate: [authGuard]},
   {path: "booked", component: BookedAppointmentsComponent, canActivate: [authGuard]},

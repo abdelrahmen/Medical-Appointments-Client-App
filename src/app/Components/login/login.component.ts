@@ -54,7 +54,7 @@ export class LoginComponent {
         },
         error: (err:HttpErrorResponse)=>{
           this.isLoading = false;
-          this.openSnackBar(err.message);
+          this.openSnackBar(err.error);
         },
         complete: ()=>{
           this.isLoading = false;
