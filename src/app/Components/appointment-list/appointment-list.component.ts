@@ -66,6 +66,7 @@ isLoading: boolean = true;
 
   changePage(page: number): void {
     // if (page >= 1 && page <= this.totalPages) {
+      this.isLoading = true;
       this.currentPage = page;
       this.getAvailableAppointments(this.currentPage, this.itemsPerPage);
       console.log(`current page: ${this.currentPage}`)

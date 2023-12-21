@@ -23,7 +23,8 @@ export class BookedAppointmentsComponent implements OnInit {
         this.isLoading = false;
       },
       error: (err) => {
-        this.openSnackBar(err.message);
+        console.log(err);
+        this.openSnackBar(err.error.message);
         this.isLoading = false;
       },
       complete: ()=>{

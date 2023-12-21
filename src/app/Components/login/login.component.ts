@@ -34,11 +34,22 @@ export class LoginComponent {
   get registerFormControls() { return this.registerForm.controls; }
 
   registerSubmit(){
-    //console.log(this.registerFormControls['firstName'].errors?.['required'])
+    this.isLoading = true;
     if (this.registerForm.valid) {
-      this.authService.register(this.registerForm.value).subscribe( res =>{
+      this.authService.register(this.registerForm.value).subscribe( {next: res =>{
         console.log(res);
-      });
+        this.openSnackBar("successfully registered, now you can login");
+        this.isLoading = false;
+      },
+    error: err=>{
+      this.isLoading = false;
+      console.log(err)
+      this.openSnackBar(err.error.errors);
+    },
+    complete: ()=>{
+      this.isLoading = false;
+    }
+  });
     }
   }
 

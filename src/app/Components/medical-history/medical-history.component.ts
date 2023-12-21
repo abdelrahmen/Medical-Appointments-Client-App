@@ -37,7 +37,7 @@ export class MedicalHistoryComponent implements OnInit {
   loadMedicalHistories(): void {
     this.medicalHistoryService.getAll().subscribe({
       next: (value) => {
-        console.log("from service ",this.medicalHistoryService.medicalHistories);
+        console.log("from service ", this.medicalHistoryService.medicalHistories);
         this.medicalhistories = value;
         this.isLoading = false;
       },
@@ -45,7 +45,7 @@ export class MedicalHistoryComponent implements OnInit {
         this.openSnackBar(err?.message ?? err.statusText);
         this.isLoading = false;
       },
-      complete: ()=>{
+      complete: () => {
         this.isLoading = false;
       }
     });
@@ -58,24 +58,28 @@ export class MedicalHistoryComponent implements OnInit {
   onSubmit(): void {
     this.isLoading = true;
     if (this.medicalHistoryForm.valid) {
-      console.log("button clicked");
       this.medicalHistoryService.addMedicalHistory(this.medicalHistoryForm.value).subscribe(
         {
           next: (res) => {
             console.log(res);
             console.log('Medical history record added successfully.');
+            this.openSnackBar('Medical history record added successfully.');
             this.isLoading = false;
             this.ngOnInit();
           },
           error: (err) => {
             this.isLoading = false;
-            this.openSnackBar(err?.message ?? err.statusText);         },
+            this.openSnackBar(err?.message ?? err.statusText);
+          },
           complete: () => {
             this.isLoading = false;
           }
         }
       );
+    } else {
+      this.openSnackBar("Medical Condition is Required and should be under 255 charachters")
     }
+    this.isLoading = false;
     console.log(this.medicalHistoryForm.value, this.medicalHistoryForm.valid);
   }
 
@@ -98,11 +102,11 @@ export class MedicalHistoryComponent implements OnInit {
     });
   }
 
-  showSnackBar: boolean=false;
-  snackbarMessage:string="";
-  openSnackBar(msg:string) {
+  showSnackBar: boolean = false;
+  snackbarMessage: string = "";
+  openSnackBar(msg: string) {
     this.showSnackBar = true;
-    this.snackbarMessage=msg;
-    setTimeout(()=>this.showSnackBar=false, 3000);
+    this.snackbarMessage = msg;
+    setTimeout(() => this.showSnackBar = false, 3000);
   }
 }

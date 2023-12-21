@@ -1,5 +1,14 @@
-.spinner{
+.spinner {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.medicalHistory {
+    min-height: 260px;
+    margin-top: 200px;
+}
+
+.record {
+    overflow: auto;
 }

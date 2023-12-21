@@ -1,43 +1,75 @@
-<div class="container mt-4 card">
+
+<div class="d-flex justify-content-center align-items-center medicalHistory">
+  <div class="container mt-4 card">
+
+    <!-- title + button -->
     <div class="d-flex justify-content-between">
-        <h2 class="mb-3 mt-2">Medical Histories</h2>
-        <button class="btn btn-primary mb-3 mt-2" (click)="toggleAddForm()">add a record</button >
+      <h2 class="mb-3 mt-2">Medical Histories</h2>
+      <button class="btn btn-primary mb-3 mt-2" (click)="toggleAddForm()">
+        add a record
+      </button>
     </div>
 
+    <!-- add form -->
     <div class="container mt-4 card mb-4" *ngIf="showAddForm">
-        <h2 class="mb-3">Add Medical History Record</h2>
-      
-        <form [formGroup]="medicalHistoryForm" (ngSubmit)="onSubmit()">
-      
-          <div class="form-group">
-            <label for="medicalCondition">Medical Condition:</label>
-            <input type="text" id="medicalCondition" formControlName="medicalCondition" class="form-control" />
-          </div>
-      
-          <div class="form-group">
-            <label for="medications">Medications:</label>
-            <input type="text" id="medications" formControlName="medications" class="form-control" />
-          </div>
-      
-          <div class="form-group">
-            <label for="allergies">Allergies:</label>
-            <input type="text" id="allergies" formControlName="allergies" class="form-control" />
-          </div>
-      
-          <div class="form-group">
-            <label for="surgeries">Surgeries:</label>
-            <input type="text" id="surgeries" formControlName="surgeries" class="form-control" />
-          </div>
-      
-          <div class="form-group">
-            <label for="familyMedicalHistory">Family Medical History:</label>
-            <input type="text" id="familyMedicalHistory" formControlName="familyMedicalHistory" class="form-control" />
-          </div>
-      
-          <button type="submit" class="btn btn-primary mb-3 mt-2">Submit</button>
-        </form>
-      </div>
-  
+      <h2 class="mb-3">Add Medical History Record</h2>
+
+      <form [formGroup]="medicalHistoryForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="medicalCondition">Medical Condition:</label>
+          <input
+            type="text"
+            id="medicalCondition"
+            formControlName="medicalCondition"
+            class="form-control"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="medications">Medications:</label>
+          <input
+            type="text"
+            id="medications"
+            formControlName="medications"
+            class="form-control"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="allergies">Allergies:</label>
+          <input
+            type="text"
+            id="allergies"
+            formControlName="allergies"
+            class="form-control"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="surgeries">Surgeries:</label>
+          <input
+            type="text"
+            id="surgeries"
+            formControlName="surgeries"
+            class="form-control"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="familyMedicalHistory">Family Medical History:</label>
+          <input
+            type="text"
+            id="familyMedicalHistory"
+            formControlName="familyMedicalHistory"
+            class="form-control"
+          />
+        </div>
+
+        <button type="submit" class="btn btn-primary mb-3 mt-2">Submit</button>
+      </form>
+    </div>
+    <div class="card-body record">
+    <!-- records -->
     <table class="table table-bordered table-hover" *ngIf="!showAddForm">
       <thead class="thead-light">
         <tr>
@@ -55,21 +87,39 @@
       <tbody>
         <tr *ngFor="let history of medicalhistories">
           <td>{{ history.medicalHistoryID }}</td>
-          <td>{{ history.dateOfEntry | date:'medium' }}</td>
+          <td>{{ history.dateOfEntry | date : "medium" }}</td>
           <td>{{ history.medicalCondition }}</td>
-          <td>{{ history.medications || 'N/A' }}</td>
-          <td>{{ history.allergies || 'N/A' }}</td>
-          <td>{{ history.surgeries || 'N/A' }}</td>
-          <td>{{ history.familyMedicalHistory || 'N/A' }}</td>
-          <td><button class="btn btn-danger" (click)="deleteRecord(history.medicalHistoryID)">Delete</button></td>
-          <td><a [routerLink]="['/medical-history', history.medicalHistoryID]" class="btn btn-success">Edit</a></td>
+          <td>{{ history.medications || "N/A" }}</td>
+          <td>{{ history.allergies || "N/A" }}</td>
+          <td>{{ history.surgeries || "N/A" }}</td>
+          <td>{{ history.familyMedicalHistory || "N/A" }}</td>
+          <td>
+            <button
+              class="btn btn-danger"
+              (click)="deleteRecord(history.medicalHistoryID)"
+            >
+              Delete
+            </button>
+          </td>
+          <td>
+            <a
+              [routerLink]="['/medical-history', history.medicalHistoryID]"
+              class="btn btn-success"
+              >Edit</a
+            >
+          </td>
         </tr>
       </tbody>
     </table>
+  </div>
+    <!-- loading sign -->
     <div class="spinner">
       <mat-spinner *ngIf="isLoading"></mat-spinner>
     </div>
-    <div id="snackbar" [class.show] = "showSnackBar">{{snackbarMessage}}</div>
+
+    <h1 class="text-center" *ngIf="medicalhistories.length == 0 && !isLoading">
+      You don't have any Medical History, Start Adding Now
+    </h1>
   </div>
- 
-  
+  <div id="snackbar" [class.show]="showSnackBar">{{ snackbarMessage }}</div>
+</div>
