@@ -15,24 +15,8 @@ export class SchedualAppointmentComponent {
   appintmentDTO?: BookAppointmentDTO;
   isLoading: boolean = true;
 
-  constructor(private appointmentService: AppointmentService, private activatedRoute: ActivatedRoute, router: Router) {
-    // this.appointmentService.getAvailableAppointments().subscribe({
-    //   next: (value) => {
-    //     this.appointment = value.find(a => a.appointmentID == Number(activatedRoute.snapshot.paramMap.get("appointmentId")));
-    //     this.isLoading = false;
-    //     if (!this.appointment) {
-    //       this.openSnackBar("no appointment found please try again");
-    //       setTimeout(() => router.navigateByUrl("home"), 2000);
-    //     }
-    //   },
-    //   error: (err: HttpErrorResponse) => {
-    //     this.isLoading = false;
-    //     this.openSnackBar(err.message);
-    //   },
-    //   complete: () => {
-    //     this.isLoading = false;
-    //   }
-    // });
+  constructor(private appointmentService: AppointmentService, private activatedRoute: ActivatedRoute, private router: Router) {
+
     this.appointment = this.appointmentService.currentAppointmentsList.find(a => a.appointmentID == Number(activatedRoute.snapshot.paramMap.get("appointmentId")));
     if (!this.appointment) {
       this.openSnackBar("no appointment found please try again");
@@ -49,16 +33,15 @@ export class SchedualAppointmentComponent {
     }
     this.appointmentService.bookAppointment(this.appointment).subscribe({
       next: (res) => {
-        console.log(res);
+        this.openSnackBar("booked Succefully");
+        setTimeout(() => this.router.navigateByUrl("home"), 2000);
         this.isLoading = false;
       },
-      error: (err) => {
-        console.log("error", err);
-        this.openSnackBar(err.message);
+      error: (err:HttpErrorResponse) => {
+        this.openSnackBar(err.error.error);
         this.isLoading = false;
       },
       complete: () => {
-        console.log("complete");
         this.isLoading = false;
       }
     });
