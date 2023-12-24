@@ -1,0 +1,25 @@
+<div class="mb-4 p-3 d-flex justify-content-center marginTop">
+  <div class="card p-4">
+    <div
+      class="image d-flex flex-column justify-content-center align-items-center"
+    >
+      <button class="btn btn-secondary">
+        <!-- <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.istockphoto.com%2Fphotos%2Fempty-profile-picture&psig=AOvVaw1L67y28yvDZdmaclhl75ap&ust=1703519582557000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCMiK15W3qIMDFQAAAAAdAAAAABAY" height="100" width="100" /> -->
+        <i class="fa-solid fa-user"></i>
+      </button>
+      <span class="name mt-3"
+        >{{ userDTO?.firstName }} {{ userDTO?.lastName }}</span
+      >
+      <span class="idd">@{{userDTO?.userName}}</span>
+      <div
+        class="d-flex flex-row justify-content-center align-items-center gap-2"
+      >
+        <span class="idd1">{{ userDTO?.email }}</span>
+      </div>
+      <div class="d-flex mt-2">
+        <button class="btn1 btn-dark">Edit Profile</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="snackbar" [class.show]="showSnackBar">{{ snackbarMessage }}</div>

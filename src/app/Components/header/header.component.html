@@ -10,11 +10,14 @@
 
   <div class="nav-links">
     <a routerLink="/home" routerLinkActive="active active-first">home</a>
-    <a routerLink="/booked" routerLinkActive="active active-first"
+    <a *ngIf="isLoggedIn()" routerLink="/booked" routerLinkActive="active active-first"
       >Booked Appointments</a
     >
-    <a routerLink="/medical-history" routerLinkActive="active active-first"
+    <a  *ngIf="isLoggedIn()" routerLink="/medical-history" routerLinkActive="active active-first"
       >Medical History</a
+    >
+    <a  *ngIf="isLoggedIn()" routerLink="/profile" routerLinkActive="active active-first"
+      >Profile</a
     >
     <a
       *ngIf="isLoggedIn()"

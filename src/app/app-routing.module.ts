@@ -7,11 +7,13 @@ import { BookedAppointmentsComponent } from './Components/booked-appointments/bo
 import { MedicalHistoryComponent } from './Components/medical-history/medical-history.component';
 import { EditMedicalHistoryComponent } from './Components/edit-medical-history/edit-medical-history.component';
 import { authGuard } from './Guards/auth.guard';
+import { ProfileComponent } from './Components/profile/profile.component';
 
 const routes: Routes = [
   {path: "", component: AppointmentListComponent},
   {path: "login-or-register", component: LoginComponent},
   {path: "home", component: AppointmentListComponent},
+  {path: "profile", component: ProfileComponent, canActivate: [authGuard]},
   {path: "schedual/:appointmentId", component: SchedualAppointmentComponent, canActivate: [authGuard]},
   {path: "booked", component: BookedAppointmentsComponent, canActivate: [authGuard]},
   {path: "medical-history", component: MedicalHistoryComponent, canActivate: [authGuard]},

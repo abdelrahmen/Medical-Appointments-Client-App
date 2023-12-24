@@ -15,6 +15,7 @@ import { SchedualAppointmentComponent } from './Components/schedual-appointment/
 import { BookedAppointmentsComponent } from './Components/booked-appointments/booked-appointments.component';
 import { MedicalHistoryComponent } from './Components/medical-history/medical-history.component';
 import { EditMedicalHistoryComponent } from './Components/edit-medical-history/edit-medical-history.component';
+import { ProfileComponent } from './Components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { EditMedicalHistoryComponent } from './Components/edit-medical-history/e
     BookedAppointmentsComponent,
     MedicalHistoryComponent,
     EditMedicalHistoryComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
