@@ -5,6 +5,7 @@ import { UserRegisterVM } from '../ViewModels/UserRegister';
 import { retry, tap } from 'rxjs';
 import { UserLoginVM } from '../ViewModels/UserLogin';
 import { Router } from '@angular/router';
+import { UserDTO } from '../ViewModels/UserVM';
 
 @Injectable({
   providedIn: 'root'
@@ -78,6 +79,10 @@ export class AuthService {
         }
       }),
     );
+  }
+
+  getUserData(){
+    return this.httpClient.get<UserDTO>(`${environment.baseUrl}/api/account/`,this.getOptions())
   }
 
   isLoggedIn(): boolean {
